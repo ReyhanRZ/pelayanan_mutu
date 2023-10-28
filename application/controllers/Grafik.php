@@ -20,6 +20,8 @@ class Grafik extends CI_Controller
 
     public function filter()
     {
+        $data['indikator'] = $this->m_dropdown->tampil_select();
+        $data['unit'] = $this->m_dropdown->tampil_unit();
         // $date = $this->input->post('date');
         // $bulan = date('m', strtotime($date));
         // $tahun = date('Y', strtotime($date));
@@ -27,8 +29,9 @@ class Grafik extends CI_Controller
 
         $indikator = $this->input->post('indikator');
         $unit = $this->input->post('unit');
+        $tahun = $this->input->post('tahun');
         // $data['graph'] = $this->m_grafik->graph($bulan, $tahun);
-        $data['perunit'] = $this->m_grafik->perunit($unit, $indikator);
+        $data['perunit'] = $this->m_grafik->perunit($unit, $indikator, $tahun);
         //var_dump($data['title']);
         //        $data['title'] = $this->m_grafik->title();
         $data['title'] = $this->m_grafik->month();

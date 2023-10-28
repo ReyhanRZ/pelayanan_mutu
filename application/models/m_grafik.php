@@ -27,9 +27,9 @@ class m_grafik extends CI_Model
         return $data;
     }
 
-    public function perunit($unit, $indikator)
+    public function perunit($unit, $indikator, $tahun)
     { //filter per unit dari select option
-        $data = $this->db->query("SELECT * from mutu INNER JOIN unit ON mutu.kd_unit=unit.kd_unit INNER JOIN indikator ON mutu.kd_indikator = indikator.kd_indikator WHERE mutu.kd_unit = $unit AND mutu.kd_indikator = $indikator");
+        $data = $this->db->query("SELECT * from mutu INNER JOIN unit ON mutu.kd_unit=unit.kd_unit INNER JOIN indikator ON mutu.kd_indikator = indikator.kd_indikator WHERE mutu.kd_unit = $unit AND mutu.kd_indikator = $indikator AND mutu.tahun = $tahun");
         //$data = $this->db->query("SELECT * from mutu INNER JOIN indikator ON mutu.kd_indikator = indikator.kd_indikator WHERE mutu.bulan = $bulan and mutu.tahun = $tahun");
         return $data->result();
     }

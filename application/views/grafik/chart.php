@@ -36,6 +36,16 @@
                     ?>
                 </select>
             </div>
+            <div class="form-group">
+                <label>Pilih Tahun :</label>
+                <select class="form-control" name="tahun" required>
+                    <option value="" selected disabled>-- SILAHKAN PILIH TAHUN --</option>
+                    <?php
+                    for ($year = (int)date('Y'); 2000 <= $year; $year--) : ?>
+                        <option value="<?= $year; ?>"><?= $year; ?></option>
+                    <?php endfor; ?>
+                </select>
+            </div>
             <!-- <div class="form-group">
                 <label>Pilih bulan dan tahun</label>
                 <input type="date" name="date" required>
@@ -44,26 +54,43 @@
         </form>
         <?php if (isset($_POST['btn'])) { ?>
             <h6 style="text-align: center;">Unit : <?php
-                                                    foreach ($perunit as $u) {
-                                                        $getunit = $u->kd_unit;
-                                                        $getpost = $_POST['unit'];
-                                                        if ($getunit == $getpost) {
-                                                            $getunitname = $u->nama_unit;
-                                                        }
-                                                    }
-                                                    echo $getunitname;
-                                                    ?></h6>
-            <h6 style="text-align: center;">Indikator : <?php
+                                                    if ($perunit != null) {
                                                         foreach ($perunit as $u) {
-                                                            $getindikator = $u->kd_indikator;
-                                                            $getpost = $_POST['indikator'];
-                                                            if ($getindikator == $getpost) {
-                                                                $getindikatorname = $u->nama_indikator;
+                                                            $getunit = $u->kd_unit;
+                                                            $getpost = $_POST['unit'];
+                                                            if ($getunit == $getpost) {
+                                                                $getunitname = $u->nama_unit;
                                                             }
                                                         }
-                                                        echo $getindikatorname;
+                                                        echo $getunitname;
+                                                    } else {
+                                                        $kd_unit = $_POST['unit'];
+                                                        $data = $this->db->query("SELECT unit.nama_unit from unit WHERE unit.kd_unit = $kd_unit");
+                                                        foreach ($data->result() as $row) {
+                                                            echo $row->nama_unit;
+                                                        }
+                                                    }
+
+                                                    ?></h6>
+            <h6 style="text-align: center;">Indikator : <?php
+                                                        if ($perunit != null) {
+                                                            foreach ($perunit as $u) {
+                                                                $getindikator = $u->kd_indikator;
+                                                                $getpost = $_POST['indikator'];
+                                                                if ($getindikator == $getpost) {
+                                                                    $getindikatorname = $u->nama_indikator;
+                                                                }
+                                                            }
+                                                            echo $getindikatorname;
+                                                        } else {
+                                                            $kd_indikator = $_POST['indikator'];
+                                                            $data = $this->db->query("SELECT indikator.nama_indikator from indikator WHERE indikator.kd_indikator = $kd_indikator");
+                                                            foreach ($data->result() as $row) {
+                                                                echo $row->nama_indikator;
+                                                            }
+                                                        }
                                                         ?></h6>
-            </h1>
+            <h6 style="text-align: center;">Tahun : <?= $_POST['tahun'] ?></h6>
         <?php } ?>
         <canvas id="myChart"></canvas>
     </div>

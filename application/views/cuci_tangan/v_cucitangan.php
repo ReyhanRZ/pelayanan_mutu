@@ -3,7 +3,7 @@
     <div class="container">
         <h3>Tambah Data Mutu</h3>
         <hr>
-        <form method="post" action="<?= base_url('cucitangan/simpan'); ?>">
+        <form method="post" action="<?= base_url('mutu/simpan'); ?>">
             <div class="form-group">
                 <label>Numerator</label>
                 <input type="number" name="numerator" class="form-control" value="<?= set_value('numerator'); ?>" required>

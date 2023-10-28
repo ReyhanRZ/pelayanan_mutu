@@ -18,7 +18,35 @@
         <?php endif ?>
         <div class="row row-md-12 align-items-center">
             <div class="col col-md-9">
-                <h3>Data Mutu RS</h3>
+                <h3>Data Mutu RS : <?php
+                                    if (!isset($_POST['date']) && !isset($_POST['unit'])) {
+                                        echo "Semua Unit dan Semua Waktu";
+                                    } else if (isset($_POST['unit']) && isset($_POST['date'])) {
+                                        foreach ($unit as $u) {
+                                            $getpost = $_POST['unit'];
+                                            $getunit = $u['kd_unit'];
+                                            if ($getunit == $getpost) {
+                                                $getunitname = $u['nama_unit'];
+                                            }
+                                        }
+                                        $bulan = date('m', strtotime($_POST['date']));
+                                        $tahun = date('Y', strtotime($_POST['date']));
+                                        echo "Unit " . $getunitname . " Periode Bulan " . $bulan . "-" . $tahun;
+                                    } else if (isset($_POST['date']) && !isset($_POST['unit'])) {
+                                        $bulan = date('m', strtotime($_POST['date']));
+                                        $tahun = date('Y', strtotime($_POST['date']));
+                                        echo "Periode Bulan " . $bulan . "-" . $tahun;
+                                    } else {
+                                        foreach ($unit as $u) {
+                                            $getpost = $_POST['unit'];
+                                            $getunit = $u['kd_unit'];
+                                            if ($getunit == $getpost) {
+                                                $getunitname = $u['nama_unit'];
+                                            }
+                                        }
+                                        echo "Unit " . $getunitname;
+                                    }
+                                    ?></h3>
                 <p>*merah artinya tidak mencapai target</p>
             </div>
             <div class="col col-md-3">
@@ -46,11 +74,19 @@
             <div class="col col-md-9" style="text-align: end;">
                 <!-- filter -->
                 <form method="post" action="<?= base_url('mutu/filter'); ?>">
-                    <div class="form-group">
+                    <div class="form-group" style="display: inline-block;">
                         <label>Filter :</label>
-                        <input type="text" name="unit">
+                        <select name="unit" id="unit">
+                            <option value="" selected disabled>-- SILAHKAN PILIH UNIT --</option>
+                            <?php
+                            foreach ($unit as $u) {
+                                echo '<option value="' . $u['kd_unit'] . '">' . $u['nama_unit'] . '</option>';
+                            }
+                            ?>
+                        </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display:inline-block">
+                        <label>Tanggal : </label>
                         <input type="date" name="date">
                         <!-- <small><span class="text-danger"><i></i></span></small> -->
 
