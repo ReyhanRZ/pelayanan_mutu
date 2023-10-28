@@ -15,19 +15,56 @@
     <div class="container" style="margin-top: 10vh;">
         <form method="post" action="<?= base_url('grafik/filter'); ?>">
             <div class="form-group">
+                <label>Pilih Unit :</label>
+                <select name="unit" id="unit" required>
+                    <option value="" selected disabled>-- SILAHKAN PILIH UNIT --</option>
+                    <?php
+                    foreach ($unit as $u) {
+                        echo '<option value="' . $u['kd_unit'] . '">' . $u['nama_unit'] . '</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Pilih Indikator :</label>
+                <select name="indikator" id="indikator" required>
+                    <option value="" selected disabled>-- SILAHKAN PILIH INDIKATOR --</option>
+                    <?php
+                    foreach ($indikator as $i) {
+                        echo '<option value="' . $i['kd_indikator'] . '">' . $i['nama_indikator'] . '</option>';
+                    }
+                    ?>
+                </select>
+            </div>
+            <!-- <div class="form-group">
                 <label>Pilih bulan dan tahun</label>
                 <input type="date" name="date" required>
-                <!-- <small><span class="text-danger"><i></i></span></small> -->
-            </div>
+            </div> -->
             <button type="submit" name="btn" class="btn btn-primary" style="margin-bottom: 10px;">OKE</button>
-            <?php if (isset($_POST['btn'])) {
-                echo $_POST['date'];
-                // $bulan = date('m', strtotime($_POST['date']));
-                // echo $bulan;
-            } ?>
         </form>
-
-
+        <?php if (isset($_POST['btn'])) { ?>
+            <h6 style="text-align: center;">Unit : <?php
+                                                    foreach ($perunit as $u) {
+                                                        $getunit = $u->kd_unit;
+                                                        $getpost = $_POST['unit'];
+                                                        if ($getunit == $getpost) {
+                                                            $getunitname = $u->nama_unit;
+                                                        }
+                                                    }
+                                                    echo $getunitname;
+                                                    ?></h6>
+            <h6 style="text-align: center;">Indikator : <?php
+                                                        foreach ($perunit as $u) {
+                                                            $getindikator = $u->kd_indikator;
+                                                            $getpost = $_POST['indikator'];
+                                                            if ($getindikator == $getpost) {
+                                                                $getindikatorname = $u->nama_indikator;
+                                                            }
+                                                        }
+                                                        echo $getindikatorname;
+                                                        ?></h6>
+            </h1>
+        <?php } ?>
         <canvas id="myChart"></canvas>
     </div>
 
@@ -40,8 +77,11 @@
                 labels: [
                     <?php
                     foreach ($title as $data) {
-                        echo "'" . $data->nama_indikator . "',";
+                        echo "'" . $data . "',";
                     }
+                    // for ($i = 0; $i < 12; $i++) {
+                    //     echo "'" . $title[$i] . "',";
+                    // }
                     ?>
                 ],
                 datasets: [{
@@ -50,15 +90,15 @@
                     borderColor: '##93C3D2',
                     data: [
                         <?php
-                        if (isset($graph)) {
+                        if (isset($perunit)) {
                             $collect = array(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
                             // $target = array(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL); 
                             //tadinya $target untuk color
-                            foreach ($graph as $data) { //tampilkan dengan for each
+                            foreach ($perunit as $data) { //tampilkan dengan for each
                                 //get nomor kd indikator
-                                $get_indikator = $data->kd_indikator;
+                                $get_bulan = $data->bulan;
                                 for ($i = 1; $i <= 12; $i++) {
-                                    if ($get_indikator == $i) {
+                                    if ($get_bulan == $i) {
                                         $collect[$i - 1] = $data->hasil;
                                     }
                                 }
@@ -67,6 +107,7 @@
                                 echo $collect[$i] . ", ";
                             }
                         }
+
                         //  if (count($graph) > 0) { //kalau ada data untuk grafik
                         // $graphs = array();
                         // $titles = array();

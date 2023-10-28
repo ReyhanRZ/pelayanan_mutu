@@ -11,8 +11,13 @@ class m_dropdown extends CI_Model
 
         //$query = $this->db->get('indikator')->result();
         $query = $this->db->get('indikator')->result_array();
-        // use result_array() instead of result() as you're getting value as an array in your view.
 
+        return $query;
+    }
+
+    function tampil_unit()
+    {
+        $query = $this->db->get('unit')->result_array();
         return $query;
     }
 }

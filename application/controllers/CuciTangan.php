@@ -9,6 +9,7 @@ class CuciTangan extends CI_Controller
         $this->load->model('m_cucitangan');
         //$data = $this->m_dropdown->tampil_select();
         $data['opsi'] = $this->m_dropdown->tampil_select();
+        $data['unit'] = $this->m_dropdown->tampil_unit();
 
         // $opsi = array();
         // foreach ($data as $s) {
@@ -41,6 +42,7 @@ class CuciTangan extends CI_Controller
         $demunerator = $this->input->post('demunerator');
         $kd_indikator = $this->input->post('indikator');
         $date = $this->input->post('tgl');
+        $unit = $this->input->post('unit');
         //$date = date('d-n-Y', strtotime($_POST['tgl']));
         // echo $date;
         // var_dump($date);
@@ -62,7 +64,8 @@ class CuciTangan extends CI_Controller
             'kd_indikator' => $kd_indikator,
             'hasil' => $hasil,
             'bulan' => $bulan,
-            'tahun' => $tahun
+            'tahun' => $tahun,
+            'unit' => $unit
         );
         //save ke database
         if (!empty($data)) {
