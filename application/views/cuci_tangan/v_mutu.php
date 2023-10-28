@@ -48,6 +48,9 @@
                 <form method="post" action="<?= base_url('mutu/filter'); ?>">
                     <div class="form-group">
                         <label>Filter :</label>
+                        <input type="text" name="unit">
+                    </div>
+                    <div class="form-group">
                         <input type="date" name="date">
                         <!-- <small><span class="text-danger"><i></i></span></small> -->
 
@@ -71,6 +74,7 @@
                     <th>Target</th>
                     <th>Hasil</th>
                     <th>Bulan</th>
+                    <th>Unit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -104,6 +108,7 @@
                         <td style="color: <?= $warna ?>"><?= $row->bulan
                                                                 . "-" .
                                                                 $row->tahun ?></td>
+                        <td style="color: <?= $warna ?>"><?= $row->nama_unit; ?></td>
                         <td>
                             <a href="<?= base_url('mutu/edit/') . $row->kd_mutu; ?>" class="btn btn-warning">Edit</a>
                             <a href="<?= base_url('mutu/hapus/') . $row->kd_mutu; ?>" class="btn btn-danger">Hapus</a>

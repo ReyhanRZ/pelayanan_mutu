@@ -92,6 +92,7 @@
                     <th>Target</th>
                     <th>Hasil</th>
                     <th>Bulan</th>
+                    <th>Unit</th>
                 </tr>
             </thead>
             <tbody>
@@ -124,6 +125,7 @@
                                                                                 } ?></td>
                         <td class="text-center" style="color: <?= $warna ?>"><?= $d->hasil ?></td>
                         <td class="text-center" style="color: <?= $warna ?>"><?= $d->bulan . '-' . $d->tahun  ?></td>
+                        <td class="text-center" style="color: <?= $warna ?>"><?= $d->nama_unit; ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

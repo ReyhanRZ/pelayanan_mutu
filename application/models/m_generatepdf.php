@@ -4,7 +4,7 @@ class m_generatepdf extends CI_Model
 
     function queryAll()
     {
-        $data = $this->db->query("SELECT * FROM mutu INNER JOIN indikator ON mutu.kd_indikator = indikator.kd_indikator");
+        $data = $this->db->query("SELECT * FROM mutu INNER JOIN indikator ON mutu.kd_indikator = indikator.kd_indikator INNER JOIN unit ON mutu.kd_unit = unit.kd_unit");
         return $data->result();
     }
 
