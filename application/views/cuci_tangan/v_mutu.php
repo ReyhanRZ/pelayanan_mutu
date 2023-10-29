@@ -51,16 +51,39 @@
             </div>
             <div class="col col-md-3">
                 <!-- pdf -->
-                <?php if (!isset($_POST['date'])) : ?>
+                <?php if (!isset($_POST['date']) && !isset($_POST['unit'])) : ?>
                     <form method="post" action="generatepdfcontroller" target="_blank" style="margin: auto; align-items:center;text-align: center;">
                         <button type="submit" name="download" class="btn btn-success">Download PDF</button>
                     </form>
                 <?php endif ?>
-                <?php if (isset($_POST['date'])) : ?>
-                    <form method="post" action="<?= base_url('generatepdfcontroller/get_filter'); ?>" target="_blank" style="margin: auto; align-items:center;text-align: center;">
-                        <button type="submit" name="download" class="btn btn-success">Download PDF</button>
-                    </form>
-                <?php endif ?>
+                <?php if (isset($_POST['btn'])) {
+                    if (isset($_POST['unit']) && isset($_POST['date'])) {
+                        $getdate = $_POST['date'];
+                        $getunit = $_POST['unit'];
+                ?>
+                        <form method="post" action="<?= base_url('generatepdfcontroller/get_filterlengkap'); ?>" target="_blank" style="margin: auto; align-items:center;text-align: center;">
+                            <input type="date" hidden value="<?= $getdate ?>" name="getdate">
+                            <input type="text" hidden value="<?= $getunit ?>" name="getunit">
+                            <button type="submit" name="download" class="btn btn-success">Download PDF</button>
+                        </form>
+                    <?php } else if (isset($_POST['date']) && !isset($_POST['unit'])) {
+                        $getdate = $_POST['date'];
+                    ?>
+                        <form method="post" action="<?= base_url('generatepdfcontroller/get_filter'); ?>" target="_blank" style="margin: auto; align-items:center;text-align: center;">
+                            <input type="date" hidden value="<?= $getdate ?>" name="getdate">
+                            <button type="submit" name="download" class="btn btn-success">Download PDF</button>
+                        </form>
+                    <?php } else if (isset($_POST['unit'])) {
+                        $getunit = $_POST['unit'];
+                    ?>
+                        <form method="post" action="<?= base_url('generatepdfcontroller/get_filterunit'); ?>" target="_blank" style="margin: auto; align-items:center;text-align: center;">
+                            <input type="text" hidden value="<?= $getunit ?>" name="getunit">
+                            <button type="submit" name="download" class="btn btn-success">Download PDF</button>
+                        </form>
+                <?php
+                    }
+                } ?>
+
             </div>
 
         </div>
@@ -87,7 +110,7 @@
                     </div>
                     <div class="form-group" style="display:inline-block">
                         <label>Tanggal : </label>
-                        <input type="date" name="date">
+                        <input type="date" name="date" value="">
                         <!-- <small><span class="text-danger"><i></i></span></small> -->
 
                         <button type="submit" name="btn" class="btn btn-primary">OKE</button>

@@ -23,11 +23,8 @@
 
                 <div class="form-group">
                     <label>Indikator</label>
-                    <?php
-                    $indikator = $row->nama_indikator;
-                    echo '<p style="font-weight:bold">Sebelumnya :' . $indikator . '</p>';
-                    ?>
                     <select class="form-control" name="indikator">
+                        <option style="font-weight: bold;" value="<?= $row->nama_indikator; ?>" selected disabled><?= $row->nama_indikator ?></option>
                         <?php
                         foreach ($opsi as $o) {
                             echo '<option value="' . $o['kd_indikator'] . '">' . $o['nama_indikator'] . '</option>';
@@ -43,6 +40,17 @@
                     echo '<p style="font-weight:bold">**Sebelumnya : bulan ' . $bulan . ' tahun ' . $tahun . '</p>';
                     ?>
                     <input type="date" name="tgl" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Unit</label>
+                    <select class="form-control" name="unit" required>
+                        <option style="font-weight: bold;" value="<?= $row->nama_unit; ?>" selected disabled><?= $row->nama_unit ?></option>
+                        <?php
+                        foreach ($unit as $u) {
+                            echo '<option value="' . $u['kd_unit'] . '">' . $u['nama_unit'] . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
                 <button type="submit" name="btn" class="btn btn-primary">Simpan Data</button>
                 <a href="<?= base_url('mutu'); ?>" class="btn btn-danger">Batal/Kembali</a>

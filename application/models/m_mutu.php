@@ -35,7 +35,7 @@ class m_mutu extends CI_Model
     function edit_data($where)
     {
         // return $this->db->get_where('mutu', $where);
-        $data = $this->db->query("SELECT * from mutu INNER JOIN indikator ON mutu.kd_indikator = indikator.kd_indikator  WHERE mutu.kd_mutu = $where");
+        $data = $this->db->query("SELECT * from mutu INNER JOIN indikator ON mutu.kd_indikator = indikator.kd_indikator INNER JOIN unit ON mutu.kd_unit = unit.kd_unit WHERE mutu.kd_mutu = $where");
         return $data->result();
     }
 

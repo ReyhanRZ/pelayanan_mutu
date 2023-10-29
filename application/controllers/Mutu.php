@@ -83,6 +83,7 @@ class Mutu extends CI_Controller
         // $where = array('kd_mutu' => $id);
         $data['mutu'] = $this->m_mutu->edit_data($id);
         $data['opsi'] = $this->m_dropdown->tampil_select();
+        $data['unit'] = $this->m_dropdown->tampil_unit();
         $this->load->view('v_header');
         $this->load->view('cuci_tangan/v_mutu_edit', $data);
         $this->load->view('v_footer');
